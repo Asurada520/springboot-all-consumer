@@ -5,8 +5,16 @@ import com.ybzbcq.model.InfoUser;
 import com.ybzbcq.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author Administrator
@@ -26,6 +34,29 @@ public class InfoUserController {
     public InfoUser userList(Integer id){
         InfoUser infoUser = userService.selectByPrimaryKey(id);
         return infoUser;
+    }
+
+    @RequestMapping("list")
+    public String getUserList(Model model,
+                              @RequestParam("currentPage") Integer currentPage, @RequestParam("pageSize") Integer pageSize){
+
+        if(currentPage == null || currentPage < 1){
+            currentPage = 1;
+        }
+
+        if(pageSize == null || currentPage < 1){
+            pageSize = 10;
+        }
+
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+
+        paramMap.put("currentPage", currentPage);
+        paramMap.put("pageSize", pageSize);
+        List<InfoUser> infoUsers = userService.selectByMultCondition(paramMap);
+
+        model.addAttribute("infoUsers", infoUsers);
+
+        return "infoUser";
     }
 
 }
