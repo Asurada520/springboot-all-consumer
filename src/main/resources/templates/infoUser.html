@@ -2,16 +2,22 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>User Test</title>
-    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>User Info List</title>
+    <!--<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>-->
+    <!--<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>-->
+    <!--<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.3.3.7.css}"/>
+    <script th:src="@{/js/jquery.min.2.1.1.js}"></script>
+    <script th:src="@{/js/bootstrap.min.3.3.7.js}"></script>
+
 </head>
 
-<body style="margin-left: 120px; margin-right: 120px">
+<body style="margin-left: 200px; margin-right: 200px">
 
 <table class="table table-striped">
-    <caption>用户信息列表</caption>
+    <!--<caption>用户信息列表</caption>-->
+    <span><a th:href="@{'/user/toAddUser'}">添加用户</a></span>
     <thead>
     <tr>
         <th>序号</th>
@@ -20,6 +26,7 @@
         <th>用户姓名</th>
         <th>用户年龄</th>
         <th>用户地址</th>
+        <th>操作</th>
     </tr>
     </thead>
     <tbody>
@@ -30,6 +37,35 @@
         <td th:text="${user.userName}"></td>
         <td th:text="${user.age}"></td>
         <td th:text="${user.address}"></td>
+        <td>
+            <a th:href="@{'/user/update?id='+${user.id}}">修改</a>
+            <a th:href="@{'/user/delete?id='+${user.id}}">删除</a>
+        </td>
+    </tr>
+
+    <tr style="text-align: center">
+        <td colspan="6">
+
+            <span th:if="${currentPage le 1}">
+               首页
+               上一页
+            </span>
+            <span th:if="${currentPage gt 1}">
+                <a th:href="@{/user/list}">首页</a>
+                <a th:href="@{'/user/list?currentPage='+${currentPage-1}}">上一页</a>
+            </span>
+
+            <span th:if="${currentPage eq totalPages}">
+                下一页
+                尾页
+            </span>
+
+            <span th:if="${currentPage lt totalPages}">
+                <a th:href="@{'/user/list?currentPage='+${currentPage+1}}">下一页</a>
+                <a th:href="@{'/user/list?currentPage='+${totalPages}}">尾页</a>
+            </span>
+
+        </td>
     </tr>
 
     </tbody>
