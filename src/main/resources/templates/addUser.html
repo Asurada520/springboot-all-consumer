@@ -13,30 +13,37 @@
 
 </head>
 
-<body style="margin-left: 200px; margin-right: 200px">
-<form class="form-horizontal" role="form">
+<body style="margin-left: 200px; margin-right: 200px; margin-top: 50px">
+
+<form class="form-horizontal" role="form" th:action="@{/user/addUser}" th:method="post">
+    <!--    <div class="form-group">
+            <div class="col-sm-10">
+                <p>添加用户</p>
+            </div>
+        </div>
+        <br/>-->
     <div class="form-group">
         <label for="userAccount" class="col-sm-2 control-label">账户</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="userAccount" placeholder="请输入账户"/>
+            <input type="text" class="form-control" id="userAccount" name="userAccount" placeholder="请输入账户"/>
         </div>
     </div>
     <div class="form-group">
         <label for="userName" class="col-sm-2 control-label">姓名</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="userName" placeholder="请输入姓名"/>
+            <input type="text" class="form-control" id="userName" name="userName" placeholder="请输入姓名" />
         </div>
     </div>
     <div class="form-group">
         <label for="age" class="col-sm-2 control-label">年龄</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="age" placeholder="请输入年龄"/>
+            <input type="text" class="form-control" id="age" name="age" placeholder="请输入年龄"/>
         </div>
     </div>
     <div class="form-group">
         <label for="address" class="col-sm-2 control-label">地址</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="address" placeholder="请输入地址"/>
+            <input type="text" class="form-control" id="address" name="address" placeholder="请输入地址"/>
         </div>
     </div>
 

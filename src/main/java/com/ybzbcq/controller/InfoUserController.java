@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -77,10 +75,11 @@ public class InfoUserController {
     }
 
     @RequestMapping("delete")
-    public void deleteUser(@RequestParam("id") Integer id){
+    public String deleteUser(Integer id){
         if(!StringUtils.isEmpty(id)){
             userService.deleteByPrimaryKey(id);
         }
+        return "redirect:/user/list";
     }
 
 
@@ -89,4 +88,9 @@ public class InfoUserController {
         return "addUser";
     }
 
+    @RequestMapping(value = "addUser", method = RequestMethod.POST)
+    public String addUser(InfoUser infoUser){
+        userService.insertSelective(infoUser);
+        return "redirect:/user/list";
+    }
 }
