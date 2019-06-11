@@ -90,7 +90,18 @@ public class InfoUserController {
 
     @RequestMapping(value = "addUser", method = RequestMethod.POST)
     public String addUser(InfoUser infoUser){
-        userService.insertSelective(infoUser);
+        if(infoUser.getId() == null){
+            userService.insertSelective(infoUser);
+        }else {
+            userService.updateByPrimaryKeySelective(infoUser);
+        }
         return "redirect:/user/list";
+    }
+
+    @RequestMapping("toUpdateUser")
+    public String toUpdateUser(Model model, @RequestParam("id") Integer id){
+        InfoUser user = userService.selectByPrimaryKey(id);
+        model.addAttribute("user", user);
+        return "addUser";
     }
 }
